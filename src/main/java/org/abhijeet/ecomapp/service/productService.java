@@ -102,4 +102,16 @@ public class productService {
                 new ProductNotFoundException("Product not found with ID : " + id));
         repo.deleteById(id);
     }
+
+    public List<Product> searchProduct(String keyword) {
+        List<ProductEntity> p = repo.searchProduct(keyword);
+        List<Product> result = new ArrayList<>();
+        for(ProductEntity res : p){
+            result.add(new Product(res.getId(),res.getName(),res.getDescription(),
+                    res.getBrand(),res.getPrice(),res.getCategory(),res.getReleaseDate(),
+                    res.getProductAvailable(),res.getStockQuantity() , res.getImageName(),
+                    res.getImageType(), res.getImageData()));
+        }
+        return result;
+    }
 }
